@@ -1,0 +1,13 @@
+<section>
+    <div class="mainContainer">
+        <div class="form">
+            <h2>Login</h2>
+            <form [formGroup]="formLog" (submit)="log()">
+                <input type="email" class="form-control" placeholder="Mail" formControlName="mail">
+                <input type="password" class="form-control" placeholder="Contraseña" formControlName="contra">
+                <button type="submit">Iniciar Sesion </button>
+            </form>
+            <p>No tenes cuenta? <a [routerLink]="['/register']">Registrate</a></p>
+        </div>
+    </div>
+</section>

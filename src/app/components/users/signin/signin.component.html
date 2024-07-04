@@ -1,0 +1,15 @@
+<section>
+    <div class="mainContainer">
+        <div class="form">
+            <h2>Register</h2>
+            <form [formGroup]="formReg" (submit)="reg()">
+                <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+                <input type="text" class="form-control" placeholder="Apellido" formControlName="apellido">
+                <input type="email" class="form-control" placeholder="Mail" formControlName="mail">
+                <input type="password" class="form-control" placeholder="Contraseña" formControlName="contra">
+                <button type="submit">Registrate</button>
+            </form>
+            <p>Ya tenes cuenta? <a [routerLink]="['/login']">Inicia Sesion</a></p>
+        </div>
+    </div>
+</section>
