@@ -1,7 +1,7 @@
 import {
   Title
-} from "./chunk-IEDBNQGM.js";
-import "./chunk-CS6XZZKO.js";
+} from "./chunk-XHZQ32AG.js";
+import "./chunk-4LFJZYQG.js";
 import {
   DOCUMENT,
   HashLocationStrategy,
@@ -10,7 +10,7 @@ import {
   LocationStrategy,
   PathLocationStrategy,
   ViewportScroller
-} from "./chunk-WLJ42F3Q.js";
+} from "./chunk-C5G2ELQ7.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   APP_INITIALIZER,
@@ -113,9 +113,9 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-} from "./chunk-JGY7HHHX.js";
+} from "./chunk-57SFBYUE.js";
 
-// ../../../node_modules/@angular/router/fesm2022/router.mjs
+// node_modules/@angular/router/fesm2022/router.mjs
 var PRIMARY_OUTLET = "primary";
 var RouteTitleKey = Symbol("RouteTitle");
 var ParamsAsMap = class {

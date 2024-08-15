@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import userModel from '../../../models/user.model';
@@ -15,23 +15,22 @@ import { HttpClientModule } from '@angular/common/http';
 export class SigninComponent {
   formReg: FormGroup;
   service: UserService
-  constructor(private userService: UserService, private formBuilder: FormBuilder) {
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router) {
     this.service = userService;
     this.formReg = this.formBuilder.group({
       nombre: '',
       apellido: '',
       mail: '',
-      contra: ''
+      contra: '',
+      direccion: '',
     });
   }
 
 reg(){
-  this.service.addUsuario(userModel.newUser(0, this.formReg.get('nombre')?.value, this.formReg.get('apellido')?.value, this.formReg.get('mail')?.value, this.formReg.get('contra')?.value)).subscribe((data: any) => {
-    console.log(data);
+  this.service.addUsuario(userModel.newUser(0, this.formReg.get('nombre')?.value, this.formReg.get('apellido')?.value, this.formReg.get('mail')?.value, this.formReg.get('contra')?.value, this.formReg.get('direccion')?.value)).subscribe((data: any) => {
+    this.router.navigateByUrl('/login');
 
-  }, error => {
-    console.log("error al registrarse");
-  })
+  });
 }
   
 }

@@ -1,7 +1,7 @@
 import { Component, NgModule } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from '../../../services/user.service';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -13,10 +13,10 @@ import { UserService } from '../../../services/user.service';
 })
 export class LoginComponent {
   formLog: FormGroup;
-  service: UserService;
+  service: AuthService;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) {
-    this.service = userService;
+  constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
+    this.service = authService;
     this.formLog = this.formBuilder.group({
       mail: '',
       contra: ''
@@ -24,7 +24,10 @@ export class LoginComponent {
   }
 
 log(){
-  
+  this.service.logUser(this.formLog.get('mail')?.value, this.formLog.get('contra')?.value).subscribe((res: any) => {
+    localStorage.setItem('token', res.token);
+    this.router.navigateByUrl('/');
+  });
 }
 
 }

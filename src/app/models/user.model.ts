@@ -3,7 +3,8 @@ export interface IUser {
     nombre: string;
     apellido: string;
     email: string;
-    contraseña: string;
+    contrasenia: string;
+    direccion: string;
 }
 
 function newUser(
@@ -11,14 +12,16 @@ function newUser(
     nombre: string,
     apellido: string,
     email: string,
-    contraseña: string
+    contrasenia: string,
+    direccion: string
 ): IUser {
     return {
         idUsuario: (idUsuario ?? 0),
         nombre: (nombre ?? ''),
         apellido: (apellido ?? ''),
         email: (email ?? ''),
-        contraseña: (contraseña ?? '')
+        contrasenia: (contrasenia ?? ''),
+        direccion: (direccion ?? '')
     };
 }
 
