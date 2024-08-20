@@ -2,11 +2,36 @@
     <div class="mainContainer">
         <div class="form">
             <h2>Login</h2>
-            <form [formGroup]="formLog" (submit)="log()">
-                <input type="email" class="form-control" placeholder="Mail" formControlName="mail">
-                <input type="password" class="form-control" placeholder="Contraseña" formControlName="contra">
-                <button type="submit">Iniciar Sesion </button>
-            </form>
+            <form [formGroup]="formLog" (ngSubmit)="log()">
+                <div>
+                  <input 
+                    type="email" 
+                    class="form-control" 
+                    placeholder="Mail" 
+                    formControlName="mail"
+                  />
+                  <!-- Mensaje de error para el campo de email -->
+                  <div *ngIf="formLog.get('mail')?.touched && formLog.get('mail')?.invalid">
+                    <small *ngIf="formLog.get('mail')?.errors?.['required']">El correo electrónico es obligatorio.</small>
+                    <small *ngIf="formLog.get('mail')?.errors?.['email']">Introduce una dirección de correo electrónico válida.</small>
+                  </div>
+                </div>
+
+                <div>
+                  <input 
+                    type="password" 
+                    class="form-control" 
+                    placeholder="Contraseña" 
+                    formControlName="contra"
+                  />
+                  <!-- Mensaje de error para el campo de contraseña -->
+                  <div *ngIf="formLog.get('contra')?.touched && formLog.get('contra')?.invalid">
+                    <small *ngIf="formLog.get('contra')?.errors?.['required']">La contraseña es obligatoria.</small>
+                  </div>
+                </div>
+
+                <button type="submit">Iniciar Sesión</button>
+              </form>
             <p>No tenes cuenta? <a [routerLink]="['/register']">Registrate</a></p>
         </div>
     </div>
