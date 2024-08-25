@@ -1,15 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Estilo para el fondo de la página */
-  body {
-    font-family: Arial, sans-serif;
-   /* background-image: url(''); */
-    background-size: cover;
-  }
+
   
   /* Estilo principal del contenedor del formulario */
   .mainContainer {
@@ -28,6 +17,11 @@
     border-top: 4px solid #017bab;
     color: white;
     text-align: center;
+  }
+
+  /*arreglar despues*/
+  .form form{
+    overflow: hidden;
   }
   
   /* Estilo para el título del formulario */
