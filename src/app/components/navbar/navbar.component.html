@@ -1,9 +1,19 @@
-<nav>
-    <ul>
-        <li><a [routerLink]="['/']">CirOS</a></li>
-        <li><a [routerLink]="['/cPad']">cPad</a></li>
-        <li><a [routerLink]="['/cPad']">cPad</a></li>
-        <li><a [routerLink]="['/cWatch']">cWatch</a></li>
-        <li><a [routerLink]="['/login']"><!-- <img src="" alt=""> --> log</a></li>
-    </ul>
-</nav>
+<header class="hero">
+    <nav id="nav" class="nav container">
+        <h2 class="nav__logo"><a [routerLink]="['/']" class="nav__link">CirOS</a></h2>
+        <ul class="nav__links">
+            <li class="nav__item"><a [routerLink]="['/cPad']" class="nav__link">cPad</a></li>
+            <li class="nav__item"><a [routerLink]="['/cPad']" class="nav__link">cPad</a></li>
+            <li class="nav__item"><a [routerLink]="['/cWatch']" class="nav__link">cWatch</a></li>
+            <li class="nav__item"><a [routerLink]="['/login']" class="nav__link">Login</a></li>
+        </ul>
+    
+        <a href="#nav" class="nav__hamburguer">
+            <img src="../../../assets/img/menu.svg" alt="" class="nav__icon">
+        </a>
+    
+        <a href="#" class="nav__close">
+            <img src="../../../assets/img/close.svg" alt="" class="nav__icon">
+        </a>
+    </nav>
+</header>
