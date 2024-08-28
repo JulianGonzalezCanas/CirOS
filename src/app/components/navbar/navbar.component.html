@@ -31,13 +31,14 @@
             
         <!-- NOT IN TUTORIAL: The <a> tags are linked to the subpages -->
         <a class="home-link" href="#">CirOS</a> 
-        <a >About</a> 
-        <a >Products</a>
-        <a   >Blog</a>
+        <a [routerLink]="['/cPhone']">cPhone</a> 
+        <a [routerLink]="['/cPad']">cPad</a>
+        <a  [routerLink]="['/cWatch']" >cWatch</a>
         <a [routerLink]="['/login']" >Login</a>
         
       </div>
     </nav>
+    <hr>
   
     
   </body>
