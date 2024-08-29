@@ -8,12 +8,21 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-perfil',
-  templateUrl: './profile.component.html',  // Asegúrate de que la ruta y el nombre del archivo sean correctos
+  templateUrl: './profile.component.html',  
   styleUrls: ['./profile.component.css'],
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule]  
 })
 export class PerfilComponent implements OnInit {
+  //Lo que deberiamos hacer es obtener un usuario solo
+  // mediante los datos del payload, asi ademas de asegurarnos 
+  // de que el usuario es quien dice ser, evitamos que se pueda
+  // modificar el id del usuario y acceder a otro perfil
+  
+
+
+
+  
   usuario = {
     idUsuario: 1,
     nombre: "Jorge",
