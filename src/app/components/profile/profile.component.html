@@ -1,1 +1,28 @@
-<p>profile works!</p>
+<div class="perfil-container">
+    <h2>Perfil de {{ usuario.nombre }} {{ usuario.apellido }}</h2>
+    <button (click)="eliminarPerfil()">Eliminar perfil</button>
+    <button (click)="modificarPerfil()">Modificar perfil</button>
+    
+    <div *ngIf="modificar">
+      <form [formGroup]="formulario">
+        <label>Nombre:</label>
+        <input formControlName="nombre" type="text">
+        <br>
+        <label>Apellido:</label>
+        <input formControlName="apellido" type="text">
+        <br>
+        <label>Email:</label>
+        <input formControlName="email" type="email">
+        <br>
+        <label>Contraseña:</label>
+        <input formControlName="contrasenia" type="password">
+        <br>
+        <label>Dirección:</label>
+        <input formControlName="direccion" type="text">
+        <br>
+        <button (click)="cancelar()">Cancelar</button>
+        <button (click)="guardar()">Guardar</button>
+      </form>
+    </div>
+  </div>
+  
