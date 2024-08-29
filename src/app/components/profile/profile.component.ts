@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { IUser } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -10,7 +11,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './profile.component.html',  // Asegúrate de que la ruta y el nombre del archivo sean correctos
   styleUrls: ['./profile.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule]  
+  imports: [ReactiveFormsModule, CommonModule]  
 })
 export class PerfilComponent implements OnInit {
   usuario = {
