@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 
 
 
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './profile.component.html',  
