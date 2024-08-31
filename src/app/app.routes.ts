@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/users/login/login.component';
 import { SigninComponent } from './components/users/signin/signin.component';
-import { AuthGuard } from './services/auth.guard';
+import { authGuard } from './services/auth.guard';
 import { PerfilComponent } from './components/users/profile/profile.component';
 
 export const routes: Routes = [
@@ -13,7 +13,7 @@ export const routes: Routes = [
     
     {
         path:"",
-        canActivate: [AuthGuard],
+        canActivate: [authGuard],
         children: [
             {path:'profile', component: PerfilComponent},
         ],

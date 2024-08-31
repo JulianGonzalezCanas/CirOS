@@ -40,4 +40,5 @@ export class AuthService {
     localStorage.removeItem('admin');
     this.router.navigate(['/']);
   }
+
 }
