@@ -1,21 +1,3 @@
-<!-- <header class="hero"> 
-    <nav id="nav" class="nav container">
-        <h2 class="nav__logo"><a [routerLink]="['/']" class="nav__link">CirOS</a></h2>
-        <ul class="nav__links">
-            <li class="nav__item"><a [routerLink]="['/cPad']" class="nav__link">cPad</a></li>
-            <li class="nav__item"><a [routerLink]="['/cPad']" class="nav__link">cPad</a></li>
-            <li class="nav__item"><a [routerLink]="['/cWatch']" class="nav__link">cWatch</a></li>
-            <li class="nav__item"><a [routerLink]="['/login']" class="nav__link">Login</a></li>
-        </ul>
-    
-        <a href="#nav" class="nav__hamburguer">
-            <img src="../../../assets/img/menu.svg" alt="" class="nav__icon">
-        </a>
-    
-        <input type="checkbox" class="nav__close">
-            <img src="../../../assets/img/close.svg" alt="" class="nav__icon">
-    </nav>
-</header> -->
 
 
     <nav>
@@ -29,12 +11,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
         </label>
             
-        <!-- NOT IN TUTORIAL: The <a> tags are linked to the subpages -->
         <a class="home-link" href="#">CirOS</a> 
         <a [routerLink]="['/cPhone']">cPhone</a> 
         <a [routerLink]="['/cPad']">cPad</a>
-        <a  [routerLink]="['/profile']" >Perfil</a>
-        <a [routerLink]="['/login']" >Login</a>
+        <a  [routerLink]="['/cWatck']" >cWatch</a>
+        <a *ngIf="!loggedIn" [routerLink]="['/login']" >Login</a>
+        <a *ngIf="loggedIn" [routerLink]="['/profile']" >Mi Perfil</a>
         
       </div>
     </nav>

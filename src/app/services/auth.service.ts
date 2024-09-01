@@ -24,6 +24,17 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  getData(){
+    const token = localStorage.getItem('token');
+    if(token){
+      const data = atob(token.split('.')[1]);
+      console.log(data);
+      return JSON.parse(data).data;
+    } else {
+      return null;
+    }
+  }
+
   logUser(email: string, contrasenia: string): Observable<any> {
     return this.http.post(`${this.BASE_URL}`, JSON.stringify({email, contrasenia}), this.httpOptions);
   }

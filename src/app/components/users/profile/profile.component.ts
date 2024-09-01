@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { IUser } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 
 
@@ -15,27 +17,16 @@ import { CommonModule } from '@angular/common';
   imports: [ReactiveFormsModule, CommonModule]  
 })
 export class PerfilComponent implements OnInit {
-  //Lo que deberiamos hacer es obtener un usuario solo
-  // mediante los datos del payload, asi ademas de asegurarnos 
-  // de que el usuario es quien dice ser, evitamos que se pueda
-  // modificar el id del usuario y acceder a otro perfil
   
-
-
-
-  
-  usuario = {
-    idUsuario: 1,
-    nombre: "Jorge",
-    apellido: "Cañas",
-    email: "sadsasdadsa@gmail.com",
-    contrasenia: "wasasa",
-    direccion: "masdwas 234"
-  };
   modificar = false;
   formulario: FormGroup;
+  usuario: IUser;
+  router: Router;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private authService: AuthService) {
+    this.router = inject(Router);
+    this.usuario = {} as IUser;
+
     this.formulario = new FormGroup({
       nombre: new FormControl('', Validators.required),
       apellido: new FormControl('', Validators.required),
@@ -46,7 +37,13 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Inicializa el formulario con los datos del usuario
+
+    const id = this.authService.getData();
+    this.userService.getOneUsuario(id).subscribe((usuario: IUser) => {
+      this.usuario = usuario;
+    });
+
+
     this.formulario = new FormGroup({
       nombre: new FormControl(this.usuario.nombre, Validators.required),
       apellido: new FormControl(this.usuario.apellido, Validators.required),
@@ -56,10 +53,15 @@ export class PerfilComponent implements OnInit {
     });
   }
 
+
+
   eliminarPerfil(): void {
     this.userService.deleteUsuario(this.usuario.idUsuario).subscribe(() => {
       console.log('Perfil eliminado con éxito');
     });
+    this.authService.logout();
+    this.router.navigate(['/login']);
+    window.location.reload();
   }
 
   modificarPerfil(): void {
