@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 
@@ -14,7 +15,7 @@ import { Router } from '@angular/router';
   templateUrl: './profile.component.html',  
   styleUrls: ['./profile.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule]  
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule]  
 })
 export class PerfilComponent implements OnInit {
   
