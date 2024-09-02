@@ -53,7 +53,11 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-
+  logOut(){
+    this.authService.logout();
+    this.router.navigate(['/login']);
+    window.location.reload();
+  }
 
   eliminarPerfil(): void {
     this.userService.deleteUsuario(this.usuario.idUsuario).subscribe(() => {
@@ -80,7 +84,8 @@ export class PerfilComponent implements OnInit {
         apellido: this.formulario.get('apellido')?.value,
         email: this.formulario.get('email')?.value,
         contrasenia: this.formulario.get('contrasenia')?.value,
-        direccion: this.formulario.get('direccion')?.value
+        direccion: this.formulario.get('direccion')?.value,
+        isSuperUser: this.usuario.isSuperUser
       };
       this.userService.updateUsuario(usuarioActualizado).subscribe(() => {
         console.log('Perfil actualizado con éxito');

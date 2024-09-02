@@ -3,6 +3,7 @@
     <h2>Perfil de {{ usuario.nombre }} {{ usuario.apellido }}</h2>
     <button (click)="modificarPerfil()">Modificar perfil</button>
     <button id="eliminarPerfil" (click)="eliminarPerfil()">Eliminar perfil</button>
+    <button (click)="logOut()">Cerrar sesion</button>
   </div>
   
   <div *ngIf="modificar" class="form">
