@@ -1,0 +1,31 @@
+<div class="main-container">
+  <div class="head">
+    <h2>Perfil de {{ usuario.nombre }} {{ usuario.apellido }}</h2>
+    <button (click)="modificarPerfil()">Modificar perfil</button>
+    <button id="eliminarPerfil" (click)="eliminarPerfil()">Eliminar perfil</button>
+    <button (click)="logOut()">Cerrar sesion</button>
+  </div>
+  
+  <div *ngIf="modificar" class="form">
+    <form [formGroup]="formulario" >
+      <label>Nombre:</label>
+      <input formControlName="nombre" type="text" class="form-control">
+      <br>
+      <label>Apellido:</label>
+      <input formControlName="apellido" type="text" class="form-control">
+      <br>
+      <label>Email:</label>
+      <input formControlName="email" type="email" class="form-control">
+      <br>
+      <label>Contraseña:</label>
+      <input formControlName="contrasenia" type="password" class="form-control">
+      <br>
+      <label>Dirección:</label>
+      <input formControlName="direccion" type="text" class="form-control">
+      <br>
+      <button (click)="cancelar()">Cancelar</button>
+      <button (click)="guardar()">Guardar</button>
+    </form>
+  </div>
+</div>
+  
