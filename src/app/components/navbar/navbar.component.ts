@@ -15,10 +15,5 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  loggedIn: boolean = false;
   constructor(public authService: AuthService){}
-
-  ngOnInit(): void {
-    this.loggedIn = this.authService.loggedIn();
-  }
 }
