@@ -6,6 +6,7 @@
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 20px;
+    border-top: 4px solid #017bab;
 }
 
 .head button{
@@ -20,11 +21,10 @@
 
 
 
-.mainContainer {
+section{
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
+  justify-content: center;
 }
   
   /* Estilo para el contenedor del formulario */

@@ -1,11 +1,10 @@
-<div class="main-container">
-  <div class="head">
-    <h2>Perfil de {{ usuario.nombre }} {{ usuario.apellido }}</h2>
-    <button (click)="modificarPerfil()">Modificar perfil</button>
-    <button id="eliminarPerfil" (click)="eliminarPerfil()">Eliminar perfil</button>
-    <button (click)="logOut()">Cerrar sesion</button>
-  </div>
-  
+<div class="head">
+  <h2>Perfil de {{ usuario.nombre }} {{ usuario.apellido }}</h2>
+  <button (click)="modificarPerfil()">Modificar perfil</button>
+  <button id="eliminarPerfil" (click)="eliminarPerfil()">Eliminar perfil</button>
+  <button (click)="logOut()">Cerrar sesion</button>
+</div>
+<section>
   <div *ngIf="modificar" class="form">
     <form [formGroup]="formulario" >
       <label>Nombre:</label>
@@ -27,5 +26,4 @@
       <button (click)="guardar()">Guardar</button>
     </form>
   </div>
-</div>
-  
+</section>
