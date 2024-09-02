@@ -7,6 +7,12 @@
     align-items: center;
     height: 100vh;
   }
+
+  #error{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    color: rgb(255, 18, 18);
+  }
   
   /* Estilo para el contenedor del formulario */
   .form {
@@ -26,7 +32,7 @@
   
   /* Estilo para el título del formulario */
   .form h2 {
-    margin: 0 0 30px;
+    margin: 0 0 20px;
     font-size: 24px;
   }
   

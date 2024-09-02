@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { NgClass, NgIf } from '@angular/common';
+import { HttpStatusCode } from '@angular/common/http';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class LoginComponent {
   formLog: FormGroup;
   service: AuthService;
   router: Router;
+  unauth: boolean = false;
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder) {
     this.service = authService;
@@ -39,9 +41,17 @@ log(){
     this.formLog.markAllAsTouched();
   }
   
-  this.service.logUser(this.formLog.get('mail')?.value, this.formLog.get('contra')?.value).subscribe((res: any) => {
-    localStorage.setItem('token', res.token);
-    this.router.navigate(['/']);
+  this.service.logUser(this.formLog.get('mail')?.value, this.formLog.get('contra')?.value).subscribe({
+    next: (res) => {
+      localStorage.setItem('token', res.token);
+      this.router.navigate(['/']);
+    },
+    error: (res) =>{
+      if(res.status == HttpStatusCode.Unauthorized){
+        this.unauth = true;
+      }
+    }
+    
   });
 
 
