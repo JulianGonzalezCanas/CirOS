@@ -27,9 +27,22 @@ export class SigninComponent {
   }
 
 reg(){
-  this.service.addUsuario(userModel.newUser(0, this.formReg.get('nombre')?.value, this.formReg.get('apellido')?.value, this.formReg.get('mail')?.value, this.formReg.get('contra')?.value, this.formReg.get('direccion')?.value, false)).subscribe((data: any) => {
-    this.router.navigateByUrl('/login');
-
+  let existe = false; 
+  
+  this.service.getUsuarios().subscribe((data: any) => {
+    data.users.forEach((user: any) => {
+      if(user.email == this.formReg.get('mail')?.value){
+        existe = true;
+      }
+    });
+    
+    if(!existe){
+      this.service.addUsuario(userModel.newUser(0, this.formReg.get('nombre')?.value, this.formReg.get('apellido')?.value, this.formReg.get('mail')?.value, this.formReg.get('contra')?.value, this.formReg.get('direccion')?.value, false)).subscribe((data: any) => {
+        this.router.navigateByUrl('/login');
+      });  
+    } else {
+      alert('El email ya existe');
+    }
   });
 }
   
