@@ -2,3 +2,14 @@ header{
     background-color: var(--globalnav-background);
     backdrop-filter: var(--globalnav-backdrop-filter);
 }
+#container{
+    left: 0;
+    top: 60px;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+}
+#navbar{
+    position: sticky;
+    z-index: 2;
+}
