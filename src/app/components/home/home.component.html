@@ -1,10 +1,31 @@
 <section class="home">
-    <div class="producto" id="phone">
+    <div class="producto" id="cphone">
         <div class="global-wrapper">
-            <div class="general-wrapper">
+            <div>
+                <img src="../../../assets/img/i_Phone_14_Pro_Space_Black_9431a57adb.png" alt="celu" height="600px" width="600px" >
+            </div>
+            <div class="general-wrapper" id="phone">
                 <div class="top-wrapper">
                     <h2 class="head">cPhone Max</h2>
-                    <p class="subhead">Viví al máximo</p>
+                    <p class="subhead">Viví al máximo.</p>
+                </div>
+                <div class="bottom-wrapper">
+                    <a [routerLink]="['/cPhone']" class="home-buttons">
+                        Conoce más
+                    </a>
+                    <a class="home-buttons">
+                        Comprar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="producto" id="creloj">
+        <div class="global-wrapper" id="reloj">
+            <div class="general-wrapper">
+                <div class="top-wrapper">
+                    <h2 class="head" id="Hreloj">cWatch</h2>
+                    <p class="subhead" id="Hreloj">No pierdas el tiempo.</p>
                 </div>
                 <div class="bottom-wrapper">
                     <a [routerLink]="['/cPhone']" class="home-buttons">
@@ -16,14 +37,29 @@
                 </div>
             </div>
             <div>
-                <img src="../../../assets/img/white-smartphone-mockup-blank-screen-isolated-on-transparent-background-smartphone-mockup-frame-free-png.webp" alt="celu" height="500px" width="500px">
+                <img src="../../../assets/img/apple-watch-ultra-02.png" alt="reloj" height="500px" width="500px" id="reloj">
             </div>
         </div>
     </div>
-    <div class="producto">
-
-    </div>
     <div class="producto">  
-
+        <div class="global-wrapper" id="cpad">
+            <div>
+                <img src="../../../assets/img/landscape__f96u1acc39aq_large.png" alt="tablet" height="500px" width="600px" id="pad">
+            </div>
+            <div class="general-wrapper">
+                <div class="top-wrapper">
+                    <h2 class="head">cPad Mini</h2>
+                    <p class="subhead">Del tamaño de una mano.</p>
+                </div>
+                <div class="bottom-wrapper">
+                    <a [routerLink]="['/cPhone']" class="home-buttons">
+                        Conoce más
+                    </a>
+                    <a class="home-buttons">
+                        Comprar
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>

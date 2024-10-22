@@ -43,6 +43,10 @@ div.top-wrapper{
     flex-direction: column;
 }
 
+#Hreloj{
+    color: #fff ;
+}
+
 h2.head{
     font-size: 56px;
     line-height: 1.07143;
@@ -102,6 +106,26 @@ a.home-buttons{
 
 }
 
+#cphone{
+    background-color: rgba(0, 0, 0, 1);
+background-image: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 1) 54%);
+}
+
 #phone{
-    background-color: ghostwhite;
+    margin-right: 60px;
+}
+
+#creloj{
+    background-color: rgba(255, 77, 1, 1);
+    background-image: linear-gradient(0deg, rgba(255, 77, 1, 1) 0%, rgba(0, 0, 0, 1) 69%);
+}
+
+#reloj{
+    margin-left: 60px;
+}
+
+
+
+#pad{
+    transform: rotate(90deg);
 }
