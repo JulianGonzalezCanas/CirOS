@@ -4,11 +4,13 @@ import { LoginComponent } from './components/users/login/login.component';
 import { SigninComponent } from './components/users/signin/signin.component';
 import { AuthGuard } from './services/auth.guard';
 import { PerfilComponent } from './components/users/profile/profile.component';
+import { CPhoneComponent } from './components/products/c-phone/c-phone.component';
 
 export const routes: Routes = [
     {path:'', component: HomeComponent},
     {path:'login', component: LoginComponent},
     {path:'register', component: SigninComponent},
+    {path:'cPhone', component: CPhoneComponent},
 
     
     {
