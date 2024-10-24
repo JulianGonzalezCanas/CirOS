@@ -3,7 +3,6 @@ import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, Inject, PLATFORM_ID, 
 import { RouterLink } from '@angular/router';
 
 
-
 @Component({
   selector: 'app-c-phone',
   standalone: true,
@@ -23,6 +22,8 @@ export class CPhoneComponent implements AfterViewInit {
       script.src = 'https://unpkg.com/@splinetool/viewer@1.9.32/build/spline-viewer.js';
       this.renderer.appendChild(document.body, script);
     }
+      //carousel
   }
-
+  
 }
+
