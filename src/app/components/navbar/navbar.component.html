@@ -17,6 +17,7 @@
         <a  [routerLink]="['/cWatch']" >cWatch</a>
         <a *ngIf="!authService.loggedIn()" [routerLink]="['/login']" >Login</a>
         <a *ngIf="authService.loggedIn()" [routerLink]="['/profile']" >Mi Perfil</a>
+        <a [routerLink]="['/cart']" ><img color="black" width="24px" height="24px" src="../../../assets/img/icons8-shopping-cart-24.png" alt="shopping-cart--v1"/></a>
         
       </div>
       <hr>
