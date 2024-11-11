@@ -3,14 +3,14 @@
         <h2 class="banner-title">Carrito</h2>
         <div class="product-grid">
           <div *ngFor="let producto of productos">
-              <img alt="" class="product-image" />
+            <img [alt]="getImageAlt(producto.type)" [src]="getImageSrc(producto.type)" class="product-image" />
               <div class="product-info">
                 <h3 class="product-name"></h3>
                 <p class="product-description">{{producto.color}}, {{producto.ram}}, {{producto.storage}}</p>
                 <p class="product-price"></p>
               </div>
           </div>
+          <div id="wallet_container"></div>
         </div>
       </div>
-      
 </section>
