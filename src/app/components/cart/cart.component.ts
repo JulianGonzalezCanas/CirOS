@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Producto } from '../../models/product.model';
-import {MercadoPago} from 'mercadopago-sdk-js';
+import { CartService } from '../../services/cart.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,11 +14,19 @@ import {MercadoPago} from 'mercadopago-sdk-js';
 })
 export class CartComponent implements OnInit{
   productos: Producto[];
-  constructor(){
+  constructor(private cartService: CartService, private router: Router) {
     this.productos = [];
   }
 
-
+  generarPago(){
+    this.cartService.genPago(JSON.stringify(this.productos)).subscribe({
+    next: (res: any) => {
+      window.location.href = res.url;
+    },
+    error: (res) =>{
+      console.log(res);
+    }});
+  }
 
   ngOnInit(): void {
     let prod;
@@ -56,33 +65,3 @@ export class CartComponent implements OnInit{
 
 }
 
-
-
-const mp = new MercadoPago('YOUR_PUBLIC_KEY', { locale: mercadopagocore.Locale.ES_AR });
-
-mp.bricks().create("wallet", "wallet_container", {
-  initialization: {
-    preferenceId: '',
-  },
-  callbacks: {
-    onSubmit: (formData, additionalData) => {
-      console.log("Form data: ", formData);
-      console.log("Additional data: ", additionalData);
-
-      // Si no tienes ninguna operación asíncrona, puedes devolver una promesa resuelta
-      return new Promise((resolve, reject) => {
-        // Si todo está bien, resuelves la promesa
-        resolve("OK");
-
-        // Si ocurriera un error, puedes rechazar la promesa
-        // reject("Error processing payment");
-      });
-    },
-    onError: (error) => {
-      console.error("Error en el pago:", error);
-    },
-    onReady: () => {
-      console.log("Brick de pago cargado correctamente");
-    }
-  }
-});
