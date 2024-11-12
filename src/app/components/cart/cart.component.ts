@@ -3,12 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from '../../models/product.model';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
