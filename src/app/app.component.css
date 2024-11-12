@@ -1,4 +1,5 @@
-header{
-    background-color: var(--globalnav-background);
-    backdrop-filter: var(--globalnav-backdrop-filter);
+
+#navbar{
+    position: sticky;
+    z-index: 2;
 }
