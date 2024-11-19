@@ -4,6 +4,7 @@ import { Producto } from '../../models/product.model';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -15,12 +16,14 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class CartComponent implements OnInit{
   productos: Producto[];
-  constructor(private cartService: CartService, private router: Router) {
+  constructor(private cartService: CartService, private router: Router, private authService: AuthService) {
     this.productos = [];
   }
 
   generarPago(){
-    this.cartService.genPago(JSON.stringify(this.productos)).subscribe({
+
+    const id = this.authService.getData();
+    this.cartService.genPago(JSON.stringify({ items: this.productos, id: id })).subscribe({
     next: (res: any) => {
       window.location.href = res.url;
     },

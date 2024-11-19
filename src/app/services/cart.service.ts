@@ -11,10 +11,13 @@ import { Injectable } from '@angular/core';
 export class CartService {
 
   readonly httpOptions = {
+    mode: 'no-cors',
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      'Accept': 'application/json'
-    })
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    }),
+    
   };
 
   private BASE_URL = 'http://localhost:3000/pagos';

@@ -61,7 +61,7 @@ export class BuyWatchComponent implements OnInit {
       let productos = JSON.parse(localStorage.getItem("productos")!);
       productos.push(this.configuracionForm.value);
       localStorage.setItem('productos', JSON.stringify(productos));
-    } else {
+    } else { 
       let productos = [];
       productos.push(this.configuracionForm.value); 
       localStorage.setItem('productos', JSON.stringify(productos));
