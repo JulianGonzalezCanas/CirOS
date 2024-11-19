@@ -18,6 +18,7 @@ export class CartComponent implements OnInit{
   productos: Producto[];
   constructor(private cartService: CartService, private router: Router, private authService: AuthService) {
     this.productos = [];
+    this.authService.loggedIn();
   }
 
   generarPago(){
@@ -30,9 +31,13 @@ export class CartComponent implements OnInit{
     error: (res) =>{
       console.log(res);
     }});
+
+    localStorage.removeItem('productos');
+    
   }
 
   ngOnInit(): void {
+    this.authService.loggedIn();
     let prod;
     prod = JSON.parse(localStorage.getItem('productos')!)
     this.productos = prod;
