@@ -6,13 +6,11 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
-
-
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-perfil',
-  templateUrl: './profile.component.html',  
+  templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, HttpClientModule]  
@@ -25,8 +23,7 @@ export class PerfilComponent implements OnInit {
   usuario: IUser;
   router: Router;
   isAdmin: boolean = false;
-
- 
+  agregarStockVisible: boolean = false;  // Nueva variable para controlar la visibilidad del formulario de agregar stock
 
   // Opciones de configuraciones
   nombreOptions = ['cPhone', 'cWatch', 'cPad'];
@@ -42,7 +39,9 @@ export class PerfilComponent implements OnInit {
     'Rojo': 4
   };
 
-  constructor(private userService: UserService, private authService: AuthService,private fb: FormBuilder) {
+
+
+  constructor(private userService: UserService, private authService: AuthService, private fb: FormBuilder,private productService: ProductsService ) {
     this.router = inject(Router);
     this.usuario = {} as IUser;
 
@@ -62,23 +61,16 @@ export class PerfilComponent implements OnInit {
       quantity: [1],
       type: [1],
     });
-
-    this.StockForm.valueChanges.subscribe((formValues) => {
-      const { name,storage, ram, quantity, color } = formValues;
-    });
-      
   }
 
   ngOnInit(): void {
-
     const id = this.authService.getData();
     this.userService.getOneUsuario(id).subscribe((usuario: IUser) => {
       this.usuario = usuario;
       if(this.usuario.isSuperUser){
         this.isAdmin = true;
-      } 
+      }
     });
-
 
     this.formulario = new FormGroup({
       nombre: new FormControl(this.usuario.nombre, Validators.required),
@@ -131,5 +123,39 @@ export class PerfilComponent implements OnInit {
   }
 
 
-  agregarStock(){}
+  convertToInteger(value: string): number {
+    if (value.endsWith('GB')) {
+      return parseInt(value.replace('GB', ''), 10);  // Eliminar 'GB' y convertir a número
+    }
+    return 0;  // Si el valor no es válido, retornamos 0 (puedes ajustar esto si es necesario)
+  }
+
+  enviarFormulario() {
+    console.log("ENTRE");
+  
+    // Obtener los valores del formulario
+    const { nombre, storage, color, ram, quantity } = this.StockForm.value;
+  
+    // Convertir los valores de 'storage' y 'ram' a enteros
+    const storageInt = this.convertToInteger(storage);  // Convierte '64GB' -> 64
+    const ramInt = this.convertToInteger(ram);  // Convierte '4GB' -> 4
+  
+    // Llamar al servicio para obtener el ID del producto, pasando los valores convertidos
+    this.productService.getProductIdBySpecs(nombre, storageInt, color.toLowerCase(), ramInt).subscribe(
+      response => {
+        console.log('ID del producto:', response.idProducto);
+        // Aquí puedes manejar el ID del producto obtenido, como asignarlo a una variable
+      },
+      error => {
+        console.error('Error al obtener el producto:', error);
+      }
+    );
+  }
+  
+
+  // Método que alterna la visibilidad del formulario
+  mostrarFormularioAgregarStock(): void {
+    this.agregarStockVisible = !this.agregarStockVisible;
+  }
+  
 }

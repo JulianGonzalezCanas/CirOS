@@ -4,62 +4,73 @@
   <button id="eliminarPerfil" (click)="eliminarPerfil()">Eliminar perfil</button>
   <button (click)="logOut()">Cerrar sesion</button>
 </div>
+
 <section>
-  
   <div *ngIf="isAdmin">
     <div class="configurator">
       <h2>Selecciona las especificaciones</h2>
-    
-      <form [formGroup]="StockForm">
-        <div class="form-group">
-          <label for="nombre">Nombre</label>
-          <select id="nombre" formControlName="nombre">
-            <option *ngFor="let option of nombreOptions" [value]="option">
-              {{ option }}
-            </option>
-          </select>
-        </div>
 
-        <div class="form-group">
-          <label for="storage">Almacenamiento</label>
-          <select id="storage" formControlName="storage">
-            <option *ngFor="let option of storageOptions" [value]="option">
-              {{ option }}
-            </option>
-          </select>
-        </div>
-    
-        <div class="form-group">
-          <label for="color">Color</label>
-          <select id="color" formControlName="color">
-            <option *ngFor="let option of colorOptions" [value]="option">
-              {{ option }}
-            </option>
-          </select>
-        </div>
-    
-        <div class="form-group">
-          <label for="ram">RAM</label>
-          <select id="ram" formControlName="ram">
-            <option *ngFor="let option of ramOptions" [value]="option">
-              {{ option }}
-            </option>
-          </select>
-        </div>
+      <!-- El botón que alterna la visibilidad del formulario -->
+      <button (click)="mostrarFormularioAgregarStock()">
+        {{ agregarStockVisible ? 'Ocultar formulario' : 'Agregar stock' }}
+      </button>
 
-        <div class="form-group">
-          <label for="quantity">Cantidad</label>
-          <input type="number" id="quantity" formControlName="quantity" min="1" step="1">
-        </div>
+      <!-- El formulario de agregar stock, inicialmente oculto -->
+      <div *ngIf="agregarStockVisible">
+        <form [formGroup]="StockForm">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <select id="nombre" formControlName="nombre">
+              <option *ngFor="let option of nombreOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
 
+          <div class="form-group">
+            <label for="storage">Almacenamiento</label>
+            <select id="storage" formControlName="storage">
+              <option *ngFor="let option of storageOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
 
-      </form>
-    
+          <div class="form-group">
+            <label for="color">Color</label>
+            <select id="color" formControlName="color">
+              <option *ngFor="let option of colorOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="ram">RAM</label>
+            <select id="ram" formControlName="ram">
+              <option *ngFor="let option of ramOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="quantity">Cantidad</label>
+            <input type="number" id="quantity" formControlName="quantity" min="1" step="1">
+          </div>
+
+          <!-- Botón de "Enviar", visible solo cuando el formulario está desplegado -->
+          <button type="button" (click)="enviarFormulario()" [disabled]="StockForm.invalid">Enviar</button>
+        
+        </form>
+      </div>
     </div>
-
-    <button (click)="agregarStock()">agregar</button>
   </div>
 </section>
+
+<!-- Aquí va el resto de tu código de perfil, donde modificas el perfil del usuario -->
+
+
 <section>
   <div *ngIf="modificar" class="form">
     <form [formGroup]="formulario" >
