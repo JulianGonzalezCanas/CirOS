@@ -54,13 +54,11 @@ export class AuthService implements OnInit{
       const token = localStorage.getItem('token');
       this.http.post(`${this.BASE_URL}/verify`, {token}, this.httpOptions).subscribe({
         next: (res: any) => {
-          console.log(res);
           if(res.message == "Token verified"){
             this.verified = true;
           }
         },
         error: (res) =>{
-          console.log(res);
           this.verified = false;
         }
       });

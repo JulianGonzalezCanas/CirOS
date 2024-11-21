@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { IUser } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
@@ -21,10 +21,28 @@ export class PerfilComponent implements OnInit {
   
   modificar = false;
   formulario: FormGroup;
+  StockForm!: FormGroup;
   usuario: IUser;
   router: Router;
+  isAdmin: boolean = false;
 
-  constructor(private userService: UserService, private authService: AuthService) {
+ 
+
+  // Opciones de configuraciones
+  nombreOptions = ['cPhone', 'cWatch', 'cPad'];
+  storageOptions = ['64GB', '128GB', '256GB', '512GB'];
+  colorOptions = ['Negro', 'Blanco', 'Azul', 'Rojo'];
+  ramOptions = ['4GB', '6GB', '8GB', '12GB'];
+
+  // Mapeo de colores a IDs
+  colorToIdMap: { [key: string]: number } = {
+    'Negro': 1,
+    'Blanco': 2,
+    'Azul': 3,
+    'Rojo': 4
+  };
+
+  constructor(private userService: UserService, private authService: AuthService,private fb: FormBuilder) {
     this.router = inject(Router);
     this.usuario = {} as IUser;
 
@@ -35,6 +53,20 @@ export class PerfilComponent implements OnInit {
       contrasenia: new FormControl('', Validators.required),
       direccion: new FormControl('', Validators.required)
     });
+
+    this.StockForm = this.fb.group({
+      nombre: ['cPhone'],
+      storage: ['64GB'],
+      color: ['Negro'],
+      ram: ['4GB'],
+      quantity: [1],
+      type: [1],
+    });
+
+    this.StockForm.valueChanges.subscribe((formValues) => {
+      const { name,storage, ram, quantity, color } = formValues;
+    });
+      
   }
 
   ngOnInit(): void {
@@ -42,6 +74,9 @@ export class PerfilComponent implements OnInit {
     const id = this.authService.getData();
     this.userService.getOneUsuario(id).subscribe((usuario: IUser) => {
       this.usuario = usuario;
+      if(this.usuario.isSuperUser){
+        this.isAdmin = true;
+      } 
     });
 
 
@@ -94,4 +129,7 @@ export class PerfilComponent implements OnInit {
       });
     }
   }
+
+
+  agregarStock(){}
 }
