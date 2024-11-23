@@ -68,7 +68,9 @@ export class AuthService implements OnInit{
 
   logout(){
     localStorage.removeItem('token');
+    window.location.reload();
     this.router.navigate(['/']);
+
   }
 
 }

@@ -1,25 +1,39 @@
+<nav>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+  <a class="home-link" href="#">CirOS</a>
+  <a [routerLink]="['/cPhone']">cPhone</a>
+  <a [routerLink]="['/cPad']">cPad</a>
+  <a [routerLink]="['/cWatch']">cWatch</a>
+  <a *ngIf="!authService.getTruthness()" [routerLink]="['/login']">Login</a>
 
-    <nav>
-      <input type="checkbox" id="sidebar-active">
-      <label for="sidebar-active" class="open-sidebar-button">
-        <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
-      </label>
-      <label id="overlay" for="sidebar-active"></label>
-      <div class="links-container">
-        <label for="sidebar-active" class="close-sidebar-button">
-          <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-        </label>
-            
-        <a class="home-link" href="#">CirOS</a> 
-        <a [routerLink]="['/cPhone']">cPhone</a> 
-        <a [routerLink]="['/cPad']">cPad</a>
-        <a  [routerLink]="['/cWatch']" >cWatch</a>
-        <a *ngIf="!authService.getTruthness()" [routerLink]="['/login']" >Login</a>
-        <a *ngIf="authService.getTruthness()" [routerLink]="['/profile']" >Mi Perfil</a>
-        <a [routerLink]="['/cart']" ><img color="black" width="24px" height="24px" src="../../../assets/img/icons8-shopping-cart-24.png" alt="shopping-cart--v1"/></a>
-        
+  <div *ngIf="authService.getTruthness()" class="profile-menu">
+    
+    <div class="profile-container">
+      <div class="profile-image">
+        <img
+          src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+          alt="Profile Picture"
+        />
       </div>
-      <hr>
-    </nav>
+      <div class="dropdown">
+        <div class="dropdown-content">
+          <div class="profile-name">
+
+            <a [routerLink]="['/profile']">
+              <i class="fas fa-user"></i> Edit Profile
+            </a>
+          </div>
+          <a (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <a *ngIf="authService.getTruthness()" [routerLink]="['/cart']">
+    <img
+      src="../../../assets/img/icons8-shopping-cart-24.png"
+    />
   

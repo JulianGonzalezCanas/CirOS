@@ -44,6 +44,19 @@ export class CartComponent implements OnInit{
     console.log(this.productos);  
   }
 
+  getProductName(type: number): string {
+    switch (type) {
+      case 1:
+        return 'cPhone';
+      case 2:
+        return 'cWatch';
+      case 3:
+        return 'cPad';
+      default:
+        return 'Unknown Product';
+    }
+  }
+
   getImageAlt(type: number): string {
     switch (type) {
       case 1:
@@ -61,11 +74,11 @@ export class CartComponent implements OnInit{
   getImageSrc(type: number): string {
     switch (type) {
       case 1:
-        return 'https://mac-center.com/cdn/shop/files/IMG-14858921_432431a4-87f0-4924-9f21-037dfe197fde.jpg?v=1726245792&width=823'; // Ruta de la imagen para el tipo 1
+        return 'https://preview.redd.it/iphone-16-pro-max-white-or-natural-v0-bk1fy3a2wazd1.jpg?width=640&crop=smart&auto=webp&s=eacc1ccd68681579e2278a02d3d1f1e3ad1b02ea'; // Ruta de la imagen para el tipo 1
       case 2:
-        return 'https://www.imagineonline.store/cdn/shop/files/Apple_Watch_Series_9_LTE_45mm_Starlight_Aluminium_Starlight_Sport_Band_PDP_Image_Position-1__en-IN.jpg?v=1698865470&width=823'; // Ruta de la imagen para el tipo 2
+        return 'https://www.hola.com/horizon/landscape/097a726e4b77-apple-watch-t.jpg?im=Resize=(640),type=downsize'; // Ruta de la imagen para el tipo 2
       case 3:
-        return 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-mini-finish-select-gallery-202211-purple-wifi_FMT_WHH?wid=640&hei=360&fmt=jpeg&qlt=95&.v=1670631639153';
+        return 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-air-finish-select-gallery-202405-11inch-purple-wificell_FMT_WHH?wid=640&hei=360&fmt=jpeg&qlt=95&.v=1713820065337';
       default:
         return 'assets/default.jpg'; // Ruta de imagen por defecto
     }
@@ -73,4 +86,3 @@ export class CartComponent implements OnInit{
 
 
 }
-
