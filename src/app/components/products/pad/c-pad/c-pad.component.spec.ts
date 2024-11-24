@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CPadComponent } from './c-pad.component';
+import { RouterModule } from '@angular/router';
 
 describe('CPadComponent', () => {
   let component: CPadComponent;
@@ -8,7 +9,7 @@ describe('CPadComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CPadComponent]
+      imports: [CPadComponent, RouterModule.forRoot([])]
     })
     .compileComponents();
 

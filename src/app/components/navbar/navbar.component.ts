@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -14,10 +14,21 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
-  constructor(public authService: AuthService, private route : Router){}
+export class NavbarComponent implements OnInit{
+  constructor(public authService: AuthService, private route : Router, private userService: UserService) {
+    this.authService.loggedIn();
+  }
+
+  ngOnInit(): void {
+    this.authService.loggedIn();
+ 
+  }
 
   login() {
     this.route.navigate(["/login"]);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

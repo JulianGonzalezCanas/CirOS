@@ -1,18 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { IUser } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
-
-
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-perfil',
-  templateUrl: './profile.component.html',  
+  templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, HttpClientModule]  
@@ -21,10 +19,29 @@ export class PerfilComponent implements OnInit {
   
   modificar = false;
   formulario: FormGroup;
+  StockForm!: FormGroup;
   usuario: IUser;
   router: Router;
+  isAdmin: boolean = false;
+  agregarStockVisible: boolean = false;  // Nueva variable para controlar la visibilidad del formulario de agregar stock
 
-  constructor(private userService: UserService, private authService: AuthService) {
+  // Opciones de configuraciones
+  nombreOptions = ['cPhone', 'cWatch', 'cPad'];
+  storageOptions = ['64GB', '128GB', '256GB', '512GB'];
+  colorOptions = ['Negro', 'Blanco', 'Azul', 'Rojo'];
+  ramOptions = ['4GB', '6GB', '8GB', '12GB'];
+
+  // Mapeo de colores a IDs
+  colorToIdMap: { [key: string]: number } = {
+    'Negro': 1,
+    'Blanco': 2,
+    'Azul': 3,
+    'Rojo': 4
+  };
+
+
+
+  constructor(private userService: UserService, private authService: AuthService, private fb: FormBuilder,private productService: ProductsService ) {
     this.router = inject(Router);
     this.usuario = {} as IUser;
 
@@ -35,15 +52,25 @@ export class PerfilComponent implements OnInit {
       contrasenia: new FormControl('', Validators.required),
       direccion: new FormControl('', Validators.required)
     });
+
+    this.StockForm = this.fb.group({
+      nombre: ['cPhone'],
+      storage: ['64GB'],
+      color: ['Negro'],
+      ram: ['4GB'],
+      quantity: [1],
+      type: [1],
+    });
   }
 
   ngOnInit(): void {
-
     const id = this.authService.getData();
     this.userService.getOneUsuario(id).subscribe((usuario: IUser) => {
       this.usuario = usuario;
+      if(this.usuario.isSuperUser){
+        this.isAdmin = true;
+      }
     });
-
 
     this.formulario = new FormGroup({
       nombre: new FormControl(this.usuario.nombre, Validators.required),
@@ -69,9 +96,11 @@ export class PerfilComponent implements OnInit {
     window.location.reload();
   }
 
-  modificarPerfil(): void {
-    this.modificar = true;
+  toggleModificarPerfil() {
+    this.modificar = !this.modificar;
   }
+
+  
 
   cancelar(): void {
     this.modificar = false;
@@ -94,4 +123,42 @@ export class PerfilComponent implements OnInit {
       });
     }
   }
+
+
+  convertToInteger(value: string): number {
+    if (value.endsWith('GB')) {
+      return parseInt(value.replace('GB', ''), 10);  
+    }
+    return 0;  
+  }
+
+  enviarFormulario() {
+  
+    
+    const { nombre, storage, color, ram, quantity } = this.StockForm.value;
+  
+    
+    const storageInt = this.convertToInteger(storage);  
+    const ramInt = this.convertToInteger(ram);  
+  
+    
+    this.productService.productId(nombre, storageInt, color.toLowerCase(), ramInt).subscribe((data: any) => {
+      console.log(data.id);
+
+      if(data){
+        this.productService.actualizarStock(data.id, quantity).subscribe(() => {
+          this.agregarStockVisible = false;
+        }); 
+      }
+      
+       
+    });
+  }
+  
+
+
+  mostrarFormularioAgregarStock(): void {
+    this.agregarStockVisible = !this.agregarStockVisible;
+  }
+  
 }

@@ -44,6 +44,7 @@ log(){
   this.service.logUser(this.formLog.get('mail')?.value, this.formLog.get('contra')?.value).subscribe({
     next: (res) => {
       localStorage.setItem('token', res.token);
+      this.authService.loggedIn();
       this.router.navigate(['/']);
     },
     error: (res) =>{

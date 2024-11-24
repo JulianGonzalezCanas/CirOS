@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { paymentData } from '../models/payment.model';
+
 
 
 @Injectable({
@@ -11,10 +11,13 @@ import { paymentData } from '../models/payment.model';
 export class CartService {
 
   readonly httpOptions = {
+    mode: 'no-cors',
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      'Accept': 'application/json'
-    })
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    }),
+    
   };
 
   private BASE_URL = 'http://localhost:3000/pagos';
