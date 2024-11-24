@@ -15,15 +15,20 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit{
-  constructor(public authService: AuthService, private route : Router){
+  constructor(public authService: AuthService, private route : Router, private userService: UserService) {
     this.authService.loggedIn();
   }
 
   ngOnInit(): void {
     this.authService.loggedIn();
+ 
   }
 
   login() {
     this.route.navigate(["/login"]);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

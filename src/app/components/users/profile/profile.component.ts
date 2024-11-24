@@ -96,9 +96,11 @@ export class PerfilComponent implements OnInit {
     window.location.reload();
   }
 
-  modificarPerfil(): void {
-    this.modificar = true;
+  toggleModificarPerfil() {
+    this.modificar = !this.modificar;
   }
+
+  
 
   cancelar(): void {
     this.modificar = false;
