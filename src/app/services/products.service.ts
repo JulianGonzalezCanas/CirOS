@@ -1,10 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ProductSpecs } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
 })
+
+
+
 export class ProductsService {
   
 
@@ -22,14 +26,14 @@ export class ProductsService {
     return basePrice * cantidad;
   }
 
+  productId(nombre: string, storage: number, color: string, ram: number){
+    console.log(nombre, storage, color, ram);
+    return this.http.put<any>(`${this.BASE_URL}/idBySpecs`, {nombre: nombre, storage: storage, color: color, ram: ram});
+  }
 
-  getProductIdBySpecs(nombre: string, storage: number, color: string, ram: number): Observable<any> {
-    return this.http.put<any>(`${this.BASE_URL}/getProductBySpecs`, {
-      nombre:nombre,
-      storage: storage,
-      color: color,
-      ram: ram
-    });
+  
+  actualizarStock(id: number, quantity: number): Observable<any> {
+    return this.http.put<any>(`${this.BASE_URL}/updateStock`, {id: id,  quantity: quantity});
   }
   
 }

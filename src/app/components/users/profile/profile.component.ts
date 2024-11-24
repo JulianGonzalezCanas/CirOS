@@ -125,35 +125,36 @@ export class PerfilComponent implements OnInit {
 
   convertToInteger(value: string): number {
     if (value.endsWith('GB')) {
-      return parseInt(value.replace('GB', ''), 10);  // Eliminar 'GB' y convertir a número
+      return parseInt(value.replace('GB', ''), 10);  
     }
-    return 0;  // Si el valor no es válido, retornamos 0 (puedes ajustar esto si es necesario)
+    return 0;  
   }
 
   enviarFormulario() {
-    console.log("ENTRE");
   
-    // Obtener los valores del formulario
+    
     const { nombre, storage, color, ram, quantity } = this.StockForm.value;
   
-    // Convertir los valores de 'storage' y 'ram' a enteros
-    const storageInt = this.convertToInteger(storage);  // Convierte '64GB' -> 64
-    const ramInt = this.convertToInteger(ram);  // Convierte '4GB' -> 4
+    
+    const storageInt = this.convertToInteger(storage);  
+    const ramInt = this.convertToInteger(ram);  
   
-    // Llamar al servicio para obtener el ID del producto, pasando los valores convertidos
-    this.productService.getProductIdBySpecs(nombre, storageInt, color.toLowerCase(), ramInt).subscribe(
-      response => {
-        console.log('ID del producto:', response.idProducto);
-        // Aquí puedes manejar el ID del producto obtenido, como asignarlo a una variable
-      },
-      error => {
-        console.error('Error al obtener el producto:', error);
+    
+    this.productService.productId(nombre, storageInt, color.toLowerCase(), ramInt).subscribe((data: any) => {
+      console.log(data.id);
+
+      if(data){
+        this.productService.actualizarStock(data.id, quantity).subscribe(() => {
+          this.agregarStockVisible = false;
+        }); 
       }
-    );
+      
+       
+    });
   }
   
 
-  // Método que alterna la visibilidad del formulario
+
   mostrarFormularioAgregarStock(): void {
     this.agregarStockVisible = !this.agregarStockVisible;
   }
