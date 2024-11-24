@@ -3,11 +3,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProductsService } from '../../../../services/products.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-buy-phone',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './buy-phone.component.html',
   styleUrls: ['./buy-phone.component.css']
 })

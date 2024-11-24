@@ -3,11 +3,12 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductsService } from '../../../../services/products.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-buy-pad',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './buy-pad.component.html',
   styleUrl: './buy-pad.component.css'
 })

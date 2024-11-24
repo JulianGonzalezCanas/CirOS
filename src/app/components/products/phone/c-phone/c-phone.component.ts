@@ -1,4 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -6,7 +7,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-c-phone',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, HttpClientModule],
   templateUrl: './c-phone.component.html',
   styleUrl: './c-phone.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
