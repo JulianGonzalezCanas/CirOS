@@ -18,7 +18,7 @@ export class UserService {
     })
   };
 
-  private BASE_URL = 'http://172.16.4.249:3000/usuario';
+  private BASE_URL = 'http://172.16.4.249:8081/usuario';
 
   constructor(private http: HttpClient) { }
 

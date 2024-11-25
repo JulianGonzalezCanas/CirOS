@@ -20,7 +20,7 @@ export class CartService {
     
   };
 
-  private BASE_URL = 'http://172.16.4.249:3000/pagos';
+  private BASE_URL = 'http://172.16.4.249:8081/pagos';
 
   constructor(private http: HttpClient) { }
 

@@ -12,7 +12,7 @@ import { ProductSpecs } from '../models/product.model';
 export class ProductsService {
   
 
-  private BASE_URL = 'http://172.16.4.249:3000/producto'; 
+  private BASE_URL = 'http://172.16.4.249:8081/producto'; 
 
   constructor(private http: HttpClient) { }
 

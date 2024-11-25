@@ -22,7 +22,7 @@ export class AuthService implements OnInit{
     })
   };
 
-  private BASE_URL = 'http://172.16.4.249:3000/auth';
+  private BASE_URL = 'http://172.16.4.249:8081/auth';
 
   constructor(private http: HttpClient, private router: Router) { }
   ngOnInit(): void {
