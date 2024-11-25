@@ -1,0 +1,18 @@
+
+
+<section class="cart-section">
+  <div class="product-banner">
+    <h2 class="banner-title">Carrito</h2>
+    <div class="product-grid">
+      <div *ngFor="let producto of productos" class="product-card">
+        <img [alt]="getImageAlt(producto.type)" [src]="getImageSrc(producto.type)" class="product-image" />
+        <div class="product-info">
+          <h3 class="product-name">{{ getProductName(producto.type) }}</h3>
+          <p class="product-description">{{producto.color}}, {{producto.ram}}, {{producto.storage}}</p>
+          <p class="product-price">{{producto.price | currency}}</p>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="buy-button" (click)="generarPago()">Comprar</button>
+  </div>
+</section>

@@ -1,0 +1,137 @@
+
+
+.main{
+    width: 100%;
+    grid-gap: 12px;
+    grid-template-areas: "";
+    grid-template-columns: repeat(1, 1fr);
+    display: grid;
+}
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+div.producto{
+    width: 100%;
+    height: 600px;
+    position: relative;
+}
+
+.global-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+a.link-producto {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    text-decoration: none !important;
+} 
+
+div.top-wrapper{
+    text-align: left;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#Hreloj{
+    color: #fff ;
+}
+
+h2.head{
+    font-size: 56px;
+    line-height: 1.07143;
+    font-weight: 600;
+    letter-spacing: -.005em;
+    color: #000;
+    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+p.subhead{
+    font-size: 28px;
+    line-height: 1.14286;
+    font-weight: 400;
+    letter-spacing: .007em;
+    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    margin-top: 6px;
+    color: #000;
+}
+
+div.general-wrapper{
+    padding-bottom: 42px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+div.bottom-wrapper{
+    text-align: left;
+    display: flex;
+    align-items: center;
+    width: 300px;
+    justify-content: space-evenly;
+
+}
+
+a.home-buttons{
+    color: #fff;
+    background: #0071e3;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    text-decoration: none !important;
+    font-size: 17px;
+    line-height: 1.17648;
+    font-weight: 400;
+    letter-spacing: -.022em;
+    min-width: 28px;
+    padding-left: 21px;
+    padding-right: 21px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    border-radius: 980px;
+    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    transition: transform 0.3s ease-in-out;
+}
+
+a.home-buttons:hover{
+    transform: scale(1.05) !important;
+}
+
+#cphone{
+    background-color: rgba(0, 0, 0, 1);
+background-image: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 1) 54%);
+}
+
+#phone{
+    margin-right: 60px;
+}
+
+#creloj{
+    background-color: rgba(255, 77, 1, 1);
+    background-image: linear-gradient(0deg, rgba(255, 77, 1, 1) 0%, rgba(0, 0, 0, 1) 69%);
+}
+
+#reloj{
+    margin-left: 60px;
+}
+
+
+
+#pad{
+    transform: rotate(90deg);
+}
+
+

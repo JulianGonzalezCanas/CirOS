@@ -1,0 +1,48 @@
+<section>
+    <div class="configurator">
+        <h2>Selecciona las especificaciones</h2>
+      
+        <form [formGroup]="configuracionForm" (ngSubmit)="uploadConfig()">
+          <div class="form-group">
+            <label for="storage">Almacenamiento</label>
+            <select id="storage" formControlName="storage">
+              <option *ngFor="let option of storageOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+      
+          <div class="form-group">
+            <label for="color">Color</label>
+            <select id="color" formControlName="color">
+              <option *ngFor="let option of colorOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+      
+          <div class="form-group">
+            <label for="ram">RAM</label>
+            <select id="ram" formControlName="ram">
+              <option *ngFor="let option of ramOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="quantity">Cantidad</label>
+            <input type="number" id="quantity" formControlName="quantity" min="1" step="1">
+          </div>
+
+          <div class="price-container">
+            <h3>Precio Total:</h3>
+            <p>{{ configuracionForm.get('price')?.value | currency:'USD' }}</p>
+          </div>
+      
+          <button type="submit">Confirmar configuración</button>
+        </form>
+      
+      </div>
+      
+</section>

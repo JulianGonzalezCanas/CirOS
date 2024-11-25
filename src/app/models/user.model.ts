@@ -5,6 +5,7 @@ export interface IUser {
     email: string;
     contrasenia: string;
     direccion: string;
+    isSuperUser: boolean;
 }
 
 function newUser(
@@ -13,7 +14,8 @@ function newUser(
     apellido: string,
     email: string,
     contrasenia: string,
-    direccion: string
+    direccion: string,
+    isSuperUser: boolean
 ): IUser {
     return {
         idUsuario: (idUsuario ?? 0),
@@ -21,7 +23,8 @@ function newUser(
         apellido: (apellido ?? ''),
         email: (email ?? ''),
         contrasenia: (contrasenia ?? ''),
-        direccion: (direccion ?? '')
+        direccion: (direccion ?? ''),
+        isSuperUser: (isSuperUser ?? false)
     };
 }
 
