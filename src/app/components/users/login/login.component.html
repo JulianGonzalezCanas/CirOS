@@ -2,6 +2,7 @@
     <div class="mainContainer">
         <div class="form">
             <h2>Login</h2>
+            <strong><p *ngIf="unauth" id="error">Usuario o contaseña incorrectos</p></strong>
             <form [formGroup]="formLog" (ngSubmit)="log()">
                 <div>
                   <input 
@@ -30,7 +31,7 @@
                   </div>
                 </div>
 
-                <button type="submit">Iniciar Sesión</button>
+                <button type="submit" >Iniciar Sesión</button>
               </form>
             <p>No tenes cuenta? <a [routerLink]="['/register']">Registrate</a></p>
         </div>

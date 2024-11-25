@@ -1,8 +1,9 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, inject, NgModule } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { NgClass, NgIf } from '@angular/common';
+import { HttpStatusCode } from '@angular/common/http';
 
 
 @Component({
@@ -15,9 +16,12 @@ import { NgClass, NgIf } from '@angular/common';
 export class LoginComponent {
   formLog: FormGroup;
   service: AuthService;
+  router: Router;
+  unauth: boolean = false;
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private authService: AuthService, private formBuilder: FormBuilder) {
     this.service = authService;
+    this.router = inject(Router);
     this.formLog = this.formBuilder.group({
       mail: ['', [Validators.required, Validators.email]],
       contra: ['', Validators.required]
@@ -37,10 +41,21 @@ log(){
     this.formLog.markAllAsTouched();
   }
   
-  this.service.logUser(this.formLog.get('mail')?.value, this.formLog.get('contra')?.value).subscribe((res: any) => {
-    localStorage.setItem('token', res.token);
-    this.router.navigateByUrl('/');
+  this.service.logUser(this.formLog.get('mail')?.value, this.formLog.get('contra')?.value).subscribe({
+    next: (res) => {
+      localStorage.setItem('token', res.token);
+      this.authService.loggedIn();
+      this.router.navigate(['/']);
+    },
+    error: (res) =>{
+      if(res.status == HttpStatusCode.Unauthorized){
+        this.unauth = true;
+      }
+    }
+    
   });
+
+
 }
 
 

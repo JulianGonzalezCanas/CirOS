@@ -1,0 +1,102 @@
+<div class="head">
+  <h2>Perfil de {{ usuario.nombre }} {{ usuario.apellido }}</h2>
+  <button (click)="toggleModificarPerfil()">
+    {{ modificar ? 'Ocultar formulario' : 'Modificar perfil' }}
+  </button>
+  <button id="eliminarPerfil" (click)="eliminarPerfil()">Eliminar perfil</button>
+  <button id="logOut" (click)="logOut()">Cerrar sesión</button>
+  <button *ngIf="isAdmin" (click)="mostrarFormularioAgregarStock()">
+    {{ agregarStockVisible ? 'Ocultar formulario' : 'Agregar stock' }}
+  </button>
+</div>
+
+<div class="form-container">
+<section class="section1">
+ 
+ 
+  <div *ngIf="isAdmin">
+
+
+      <!-- El formulario de agregar stock, inicialmente oculto -->
+      <div *ngIf="agregarStockVisible">
+        <form [formGroup]="StockForm">
+          <section class="formStock">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <select id="nombre" formControlName="nombre" class ="form-control">
+              <option *ngFor="let option of nombreOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="storage">Almacenamiento</label>
+            <select id="storage" formControlName="storage" class ="form-control">
+              <option *ngFor="let option of storageOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="color">Color</label>
+            <select id="color" formControlName="color" class ="form-control">
+              <option *ngFor="let option of colorOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="ram">RAM</label>
+            <select id="ram" formControlName="ram" class ="form-control">
+              <option *ngFor="let option of ramOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="quantity">Cantidad</label>
+            <input type="number" id="quantity" formControlName="quantity" min="1" step="1" class ="form-control">
+          </div>
+
+          <!-- Botón de "Enviar", visible solo cuando el formulario está desplegado -->
+          <button type="button" (click)="enviarFormulario()" [disabled]="StockForm.invalid">Enviar</button>
+        </section>
+        </form>
+      </div>
+    </div>
+</section>
+
+<!-- Aquí va el resto de tu código de perfil, donde modificas el perfil del usuario -->
+
+
+<section class="section2">
+  <div *ngIf="modificar" class="form">
+    <form [formGroup]="formulario" >
+      <label>Nombre:</label>
+      <input formControlName="nombre" type="text" class="form-control">
+      <br>
+      <label>Apellido:</label>
+      <input formControlName="apellido" type="text" class="form-control">
+      <br>
+      <label>Email:</label>
+      <input formControlName="email" type="email" class="form-control">
+      <br>
+      <label>Contraseña:</label>
+      <input formControlName="contrasenia" type="password" class="form-control">
+      <br>
+      <label>Dirección:</label>
+      <input formControlName="direccion" type="text" class="form-control">
+      <br>
+      <button (click)="cancelar()">Cancelar</button>
+      <button (click)="guardar()">Guardar</button>
+    </form>
+  </div>
+</section>
+</div>
+<body>
+  
+</body>
