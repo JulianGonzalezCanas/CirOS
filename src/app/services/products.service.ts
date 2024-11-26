@@ -38,8 +38,8 @@ export class ProductsService {
     return this.http.put<any>(`${this.BASE_URL}/idBySpecs`, {nombre: nombre, storage: storage, color: color, ram: ram});
   }
 
-  getProducto(id: number): Observable<Producto> {
-    return this.http.get<any>(`${this.BASE_URL}` + `/${id}`, this.httpOptions);
+  getProducto(id: number): Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL}` + `/${id}`);
   }
 
   

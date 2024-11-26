@@ -4,7 +4,8 @@ export interface Producto{
   ram: string, 
   storage: string, 
   quantity: number, 
-  type: number
+  type: number,
+  precio: number
 }
 
 export interface ProductSpecs {
