@@ -24,21 +24,12 @@ export class BuyPadComponent implements OnInit {
   colorOptions = ['Negro', 'Blanco', 'Azul', 'Rojo'];
   ramOptions = ['8GB', '16GB'];
 
-  // Mapeo de colores a IDs
-  colorToIdMap: { [key: string]: number } = {
-    'Negro': 9,
-    'Blanco': 10,
-    'Azul': 11,
-    'Rojo': 12
-  };
- 
 
-  constructor(private fb: FormBuilder, private router: Router, private service: ProductsService) {
+  constructor(private fb: FormBuilder, private router: Router, private productService: ProductsService) {
     this.router = inject(Router);
   }
 
   ngOnInit(): void {
-
 
     this.configuracionForm = this.fb.group({
       storage: ['128GB'],  // Valor inicial
@@ -48,61 +39,47 @@ export class BuyPadComponent implements OnInit {
       type: [3],
       price: this.precio,
       id:  0
-
-
     });
-
 
     this.configuracionForm.valueChanges.subscribe((formValues) => {
 
-      const { storage, ram, quantity, color } = formValues;
+      const { storage, ram, color } = formValues;
 
-       
-      // Calcula el precio en base a las configuraciones
-     /* const price = this.service.calcularPrecio(storage, ram, 1100, quantity);
-      this.configuracionForm.patchValue({ price }, { emitEvent: false });
-      */
-
-      // Actualiza el ID en base al color seleccionado
-      this.service.productId("cPad", this.convertToInteger(storage), color, this.convertToInteger(ram)).subscribe(newId => {
-        this.configuracionForm.patchValue({ id: newId }, { emitEvent: false });
+      this.productService.productId("cPad", this.productService.convertToInteger(storage), color, this.productService.convertToInteger(ram)).subscribe(newId => {
         let id  = newId.id;
     
-        this.service.getProducto(id).subscribe((producto:Producto) => {
+        this.productService.getProducto(id).subscribe((producto:Producto) => {
           this.configuracionForm.patchValue({ price: producto.precio }, { emitEvent: false });
         });
+      });     
 
-      });
-    
-      
-
-      
-    
     });
   }
 
   uploadConfig(): void {
-    if (localStorage.getItem('productos')) {
-      let productos = JSON.parse(localStorage.getItem("productos")!);
-      productos.push(this.configuracionForm.value);
-      localStorage.setItem('productos', JSON.stringify(productos));
-    } else {
-      let productos = [];
-      productos.push(this.configuracionForm.value); 
-      localStorage.setItem('productos', JSON.stringify(productos));
-    }
-    this.router.navigate(['/cart']);
+    this.productService.productId("cPad", this.productService.convertToInteger(this.configuracionForm.get('storage')?.value),  this.configuracionForm.get('color')?.value, this.productService.convertToInteger(this.configuracionForm.get('ram')?.value)).subscribe(newId => {
+      this.configuracionForm.patchValue({ id: newId.id }, { emitEvent: false });
+      this.productService.getProducto(newId.id).subscribe((producto) => {
+        if(producto.stock == 0){
+          alert("No hay stock disponible para este producto");
+        } else {
+          if (localStorage.getItem('productos')) {
+            let productos = JSON.parse(localStorage.getItem("productos")!);
+            productos.push(this.configuracionForm.value);
+            localStorage.setItem('productos', JSON.stringify(productos));
+          } else {
+            let productos = [];
+            productos.push(this.configuracionForm.value); 
+            localStorage.setItem('productos', JSON.stringify(productos));
+          }
+          this.router.navigate(['/cart']);
+        }
+      });
+    
+    });
+
   }
 
-  convertToInteger(value: string): number {
-    if (value.endsWith('GB' )) {
-      return parseInt(value.replace('GB', ''), 10);  // Eliminar 'GB' y convertir a número
-    }
-    if (value.endsWith('TB' )) {
-      return parseInt(value.replace('TB', ''), 10);  // Eliminar 'GB' y convertir a número
-    }
-    return 0;  // Si el valor no es válido, retornamos 0 (puedes ajustar esto si es necesario)
-    
-  }
+
 
 }

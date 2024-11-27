@@ -46,5 +46,16 @@ export class ProductsService {
   actualizarStock(id: number, quantity: number): Observable<any> {
     return this.http.put<any>(`${this.BASE_URL}/updateStock`, {id: id,  quantity: quantity});
   }
+
+  convertToInteger(value: string): number {
+    if (value.endsWith('GB' )) {
+      return parseInt(value.replace('GB', ''), 10);  // Eliminar 'GB' y convertir a número
+    }
+    if (value.endsWith('TB' )) {
+      return parseInt(value.replace('TB', ''), 10) * 1024;  // Eliminar 'GB' y convertir a número
+    }
+    return 0;  // Si el valor no es válido, retornamos 0 (puedes ajustar esto si es necesario)
+    
+  }
   
 }
