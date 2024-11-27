@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProductsService } from '../../../../services/products.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Producto } from '../../../../models/product.model';
 
 @Component({
   selector: 'app-buy-phone',
@@ -21,7 +22,7 @@ export class BuyPhoneComponent implements OnInit {
   colorOptions = ['Negro', 'Blanco', 'Azul', 'Rojo'];
   ramOptions = ['4GB', '6GB', '8GB', '12GB'];
 
-
+  precio : number = 800
 
   constructor(private fb: FormBuilder, private router: Router, private productService: ProductsService) {
     this.router = inject(Router);
@@ -34,16 +35,21 @@ export class BuyPhoneComponent implements OnInit {
       ram: ['4GB'],
       quantity: [1],
       type: [1],
-      price: [this.productService.calcularPrecio('128GB', '8GB', 800, 1)],
+      price: this.precio, 
       id: 0
     });
 
     this.configuracionForm.valueChanges.subscribe((formValues) => {
-      const { storage, ram, quantity, color } = formValues;
 
-      // Calcula el precio en base a las configuraciones
-      const price = this.productService.calcularPrecio(storage, ram, 800, quantity);
-      this.configuracionForm.patchValue({ price }, { emitEvent: false });
+      const { storage, ram, color } = formValues;
+
+      this.productService.productId("cPhone", this.productService.convertToInteger(storage), color, this.productService.convertToInteger(ram)).subscribe(newId => {
+        let id  = newId.id;
+    
+        this.productService.getProducto(id).subscribe((producto:Producto) => {
+          this.configuracionForm.patchValue({ price: producto.precio }, { emitEvent: false });
+        });
+      });     
 
     });
   }

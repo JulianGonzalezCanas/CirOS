@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductsService } from '../../../../services/products.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Producto } from '../../../../models/product.model';
 
 @Component({
   selector: 'app-buy-watch',
@@ -13,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './buy-watch.component.css'
 })
 export class BuyWatchComponent implements OnInit {
+
+  precio : number = 400;
 
   configuracionForm!: FormGroup;
 
@@ -32,17 +35,22 @@ export class BuyWatchComponent implements OnInit {
       ram: ['4GB'],       // Valor inicial
       quantity: [1],
       type: [2],
-      price: [this.productService.calcularPrecio('128GB', '8GB', 400, 1)],
+      price: this.precio,
       id: 0
     });
 
     this.configuracionForm.valueChanges.subscribe((formValues) => {
-      const { storage, ram, quantity, color } = formValues;
 
-      const price = this.productService.calcularPrecio(storage, ram, 400, quantity);
-      this.configuracionForm.patchValue({ price }, { emitEvent: false });
+      const { storage, ram, color } = formValues;
 
-      
+      this.productService.productId("cWatch", this.productService.convertToInteger(storage), color, this.productService.convertToInteger(ram)).subscribe(newId => {
+        let id  = newId.id;
+    
+        this.productService.getProducto(id).subscribe((producto:Producto) => {
+          this.configuracionForm.patchValue({ price: producto.precio }, { emitEvent: false });
+        });
+      });     
+
     });
   }
 

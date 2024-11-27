@@ -3,8 +3,8 @@
 
   <a class="home-link" href="#">CirOS</a>
   <a [routerLink]="['/cPhone']">cPhone</a>
-  <a [routerLink]="['/cPad']">cPad</a>
   <a [routerLink]="['/cWatch']">cWatch</a>
+  <a [routerLink]="['/cPad']">cPad</a>
   <a *ngIf="!authService.getTruthness()" [routerLink]="['/login']">Login</a>
 
   <div *ngIf="authService.getTruthness()" class="profile-menu">
