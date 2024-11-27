@@ -21,15 +21,9 @@ export class BuyPhoneComponent implements OnInit {
   colorOptions = ['Negro', 'Blanco', 'Azul', 'Rojo'];
   ramOptions = ['4GB', '6GB', '8GB', '12GB'];
 
-  // Mapeo de colores a IDs
-  colorToIdMap: { [key: string]: number } = {
-    'Negro': 1,
-    'Blanco': 2,
-    'Azul': 3,
-    'Rojo': 4
-  };
 
-  constructor(private fb: FormBuilder, private router: Router, private service: ProductsService) {
+
+  constructor(private fb: FormBuilder, private router: Router, private productService: ProductsService) {
     this.router = inject(Router);
   }
 
@@ -40,33 +34,39 @@ export class BuyPhoneComponent implements OnInit {
       ram: ['4GB'],
       quantity: [1],
       type: [1],
-      price: [this.service.calcularPrecio('128GB', '8GB', 800, 1)],
-      id: [this.colorToIdMap['Negro']]  // Valor inicial de ID basado en el color
+      price: [this.productService.calcularPrecio('128GB', '8GB', 800, 1)],
+      id: 0
     });
 
     this.configuracionForm.valueChanges.subscribe((formValues) => {
       const { storage, ram, quantity, color } = formValues;
 
       // Calcula el precio en base a las configuraciones
-      const price = this.service.calcularPrecio(storage, ram, 800, quantity);
+      const price = this.productService.calcularPrecio(storage, ram, 800, quantity);
       this.configuracionForm.patchValue({ price }, { emitEvent: false });
 
-      // Actualiza el ID en base al color seleccionado
-      const newId = this.colorToIdMap[color];
-      this.configuracionForm.patchValue({ id: newId }, { emitEvent: false });
     });
   }
 
   uploadConfig(): void {
-    if(localStorage.getItem('productos')){
-      let productos = JSON.parse(localStorage.getItem("productos")!);
-      productos.push(this.configuracionForm.value);
-      localStorage.setItem('productos', JSON.stringify(productos));
-    } else {
-      let productos = [];
-      productos.push(this.configuracionForm.value); 
-      localStorage.setItem('productos', JSON.stringify(productos));
-    }
-    this.router.navigate(['/cart']);
+    this.productService.productId("cPhone", this.productService.convertToInteger(this.configuracionForm.get('storage')?.value),  this.configuracionForm.get('color')?.value, this.productService.convertToInteger(this.configuracionForm.get('ram')?.value)).subscribe(newId => {
+      this.configuracionForm.patchValue({ id: newId.id }, { emitEvent: false });
+      this.productService.getProducto(newId.id).subscribe((producto) => {
+        if(producto.stock == 0){
+          alert("No hay stock disponible para este producto");
+        } else {
+          if (localStorage.getItem('productos')) {
+            let productos = JSON.parse(localStorage.getItem("productos")!);
+            productos.push(this.configuracionForm.value);
+            localStorage.setItem('productos', JSON.stringify(productos));
+          } else {
+            let productos = [];
+            productos.push(this.configuracionForm.value); 
+            localStorage.setItem('productos', JSON.stringify(productos));
+          }
+          this.router.navigate(['/cart']);
+        }
+      });
+    });
   }
 }

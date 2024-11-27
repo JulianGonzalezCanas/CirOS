@@ -110,19 +110,21 @@ export class PerfilComponent implements OnInit {
     if (this.formulario) {
       const usuarioActualizado: IUser = {
         idUsuario: this.usuario.idUsuario,
-        nombre: this.formulario.get('nombre')?.value,
-        apellido: this.formulario.get('apellido')?.value,
-        email: this.formulario.get('email')?.value,
-        contrasenia: this.formulario.get('contrasenia')?.value,
-        direccion: this.formulario.get('direccion')?.value,
-        isSuperUser: this.usuario.isSuperUser
+        nombre: this.formulario.get('nombre')?.value || this.usuario.nombre,
+        apellido: this.formulario.get('apellido')?.value || this.usuario.apellido,
+        email: this.formulario.get('email')?.value || this.usuario.email,
+        contrasenia: this.formulario.get('contrasenia')?.value || this.usuario.contrasenia,
+        direccion: this.formulario.get('direccion')?.value || this.usuario.direccion,
+        isSuperUser: this.usuario.isSuperUser 
       };
+  
       this.userService.updateUsuario(usuarioActualizado).subscribe(() => {
         console.log('Perfil actualizado con éxito');
         this.modificar = false;
       });
     }
   }
+  
 
 
   convertToInteger(value: string): number {
