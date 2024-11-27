@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductSpecs } from '../models/product.model';
+import { Producto, ProductSpecs } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,13 @@ export class ProductsService {
 
   constructor(private http: HttpClient) { }
 
+  readonly httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Accept': 'application/json'
+    })
+  };
+
 
 
   storageOptions = ['64GB', '128GB', '256GB', '512GB', '1TB'];
@@ -29,6 +36,10 @@ export class ProductsService {
   productId(nombre: string, storage: number, color: string, ram: number){
     console.log(nombre, storage, color, ram);
     return this.http.put<any>(`${this.BASE_URL}/idBySpecs`, {nombre: nombre, storage: storage, color: color, ram: ram});
+  }
+
+  getProducto(id: number): Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL}` + `/${id}`);
   }
 
   
