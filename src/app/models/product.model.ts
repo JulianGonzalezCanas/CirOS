@@ -5,7 +5,8 @@ export interface Producto{
   storage: string, 
   quantity: number, 
   type: number,
-  precio: number
+  precio: number,
+  id: number
 }
 
 export interface ProductSpecs {

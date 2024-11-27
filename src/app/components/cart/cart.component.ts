@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Producto } from '../../models/product.model';
 import { CartService } from '../../services/cart.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 
@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -18,7 +18,7 @@ export class CartComponent implements OnInit{
   productos: Producto[];
   constructor(private cartService: CartService, private router: Router, private authService: AuthService) {
     this.productos = [];
-    this.authService.loggedIn();
+
   }
 
   generarPago(){
@@ -37,7 +37,6 @@ export class CartComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.authService.loggedIn();
     let prod;
     prod = JSON.parse(localStorage.getItem('productos')!)
     this.productos = prod;
@@ -82,6 +81,14 @@ export class CartComponent implements OnInit{
       default:
         return 'assets/default.jpg'; // Ruta de imagen por defecto
     }
+  }
+
+  borrar(id:number){
+    let productos = JSON.parse(localStorage.getItem('productos')!);
+    productos = productos.filter((producto:Producto) => producto.id != id);
+    localStorage.removeItem('productos');
+    localStorage.setItem('productos', JSON.stringify(productos));
+    this.ngOnInit();
   }
 
 

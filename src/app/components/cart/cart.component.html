@@ -11,8 +11,14 @@
           <p class="product-description">{{producto.color}}, {{producto.ram}}, {{producto.storage}}</p>
           <p class="product-price">{{producto.price | currency}}</p>
         </div>
+        <div class="button-wrapper">
+          <button type="submit" class="delete-button" (click)="borrar(producto.id)"><img src="../../../assets/img/trash.png" width="20px" height="25px"></button>
+        </div>
       </div>
     </div>
-    <button type="submit" class="buy-button" (click)="generarPago()">Comprar</button>
+    <div class="bottom-wrapper">
+      <button type="submit" class="buy-button" (click)="generarPago()">Comprar</button>
+      <button type="submit" class="buy-button" (click)="generarPago()"><a [routerLink]="['/']">Agregar</a></button>
+    </div>
   </div>
 </section>
