@@ -1,8 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
-import { RouterLink } from '@angular/router';
-
+import { Component, OnInit, ElementRef, Renderer2, CUSTOM_ELEMENTS_SCHEMA, PLATFORM_ID, Inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-c-phone',
@@ -12,19 +11,20 @@ import { RouterLink } from '@angular/router';
   styleUrl: './c-phone.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CPhoneComponent implements AfterViewInit {
+export class CPhoneComponent implements OnInit {
 
-  constructor(private renderer: Renderer2, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private el: ElementRef,private renderer: Renderer2, @Inject(PLATFORM_ID) private platformId: Object) {}
+  ngOnInit(): void {
+    const sideImages = this.el.nativeElement.querySelectorAll('.side-image');
+    const mainImage = this.el.nativeElement.querySelector('#main-image');
 
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      const script = this.renderer.createElement('script');
-      script.type = 'module';
-      script.src = 'https://unpkg.com/@splinetool/viewer@1.9.32/build/spline-viewer.js';
-      this.renderer.appendChild(document.body, script);
+    if (mainImage) {
+      sideImages.forEach((image: HTMLImageElement) => {
+        this.renderer.listen(image, 'click', () => {
+          this.renderer.setAttribute(mainImage, 'src', image.src);
+        });
+      });
     }
-      //carousel
   }
-  
 }
 

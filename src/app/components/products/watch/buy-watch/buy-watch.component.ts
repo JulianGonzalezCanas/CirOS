@@ -47,6 +47,7 @@ export class BuyWatchComponent implements OnInit {
         let id  = newId.id;
     
         this.productService.getProducto(id).subscribe((producto:Producto) => {
+          
           this.configuracionForm.patchValue({ price: producto.precio }, { emitEvent: false });
         });
       });     

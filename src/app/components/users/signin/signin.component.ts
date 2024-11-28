@@ -27,23 +27,14 @@ export class SigninComponent {
   }
 
 reg(){
-  let existe = false; 
-  
-  this.service.getUsuarios().subscribe((data: any) => {
-    data.users.forEach((user: any) => {
-      if(user.email == this.formReg.get('mail')?.value){
-        existe = true;
-      }
-    });
-    
-    if(!existe){
-      this.service.addUsuario(userModel.newUser(0, this.formReg.get('nombre')?.value, this.formReg.get('apellido')?.value, this.formReg.get('mail')?.value, this.formReg.get('contra')?.value, this.formReg.get('direccion')?.value, true)).subscribe((data: any) => {
-        this.router.navigateByUrl('/login');
-      });  
-    } else {
+  this.service.addUsuario(userModel.newUser(0, this.formReg.get('nombre')?.value, this.formReg.get('apellido')?.value, this.formReg.get('mail')?.value, this.formReg.get('contra')?.value, this.formReg.get('direccion')?.value, false)).subscribe({
+    next: () => {
+      this.router.navigate(['/login']);
+    },
+    error: (res) =>{
       alert('El email ya existe');
-    }
-  });
+    }});
+   
 }
   
 }
